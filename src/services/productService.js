@@ -1,11 +1,13 @@
 import products from '../models/productModel.js';
+import productRepository from '../repositories/productRepository.js';
 
-const getProducts=()=>{
+const getProducts=async()=>{
+    const products=await productRepository.getProducts();
     return products;
 }
 
-const getProductById=(id)=>{
-    const product=products.find(prod=>prod.id===id);
+const getProductById=async(id)=>{
+    const product=await productRepository.getProductById(id);
     return product;
 }
 

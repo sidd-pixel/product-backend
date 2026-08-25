@@ -20,13 +20,14 @@ import productService from '../services/productService.js';
 
 
 
-const getProducts=(req,res)=>{
-    res.json(productService.getProducts());
+const getProducts=async(req,res)=>{
+    const products=await productService.getProducts();
+    res.json(products);
 }
 
-const getProductById=(req,res)=>{
+const getProductById=async(req,res)=>{
     const productId=parseInt(req.params.id,10);
-    const product=productService.getProductById(productId);
+    const product=await productService.getProductById(productId);
     if(product){
         res.json(product);
     } else {
@@ -38,24 +39,6 @@ const getProductById=(req,res)=>{
 const createProduct=(req,res)=>{
 
     const {name,price}=req.body;
-
-    if(typeof price!=='number'){
-        return res.status(400).json({message:"Product price must be a number"});
-    }
-
-    if(typeof name!=='string'){
-        return res.status(400).json({message:"Product name must be a string"});
-    }
-
-    if(!name.trim()){
-        return res.status(400).json({message:"Product name is required"});
-    }
-
-
-    if(price<=0){
-        return res.status(400).json({message:"Product price cannot be negative"});
-    }
-
 
     const product=productService.createProduct(name,price);
     res.status(201).json(product);
