@@ -13,4 +13,6 @@ router.post('/',validateProduct,productController.createProduct);
 
 router.patch('/:id',validateProductUpdate,productController.updateProduct);
 
+router.delete('/:id',productController.deleteProduct);
+
 export default router;

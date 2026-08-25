@@ -24,4 +24,10 @@ const updateProduct=async(id,name,price)=>{
     return rows[0];
 }
 
-export default {getProducts,getProductById,createProduct,updateProduct};
+const deleteProduct=async(id)=>{
+    const query='delete from products where id=$1 returning *';
+    const {rows}=await pool.query(query,[id]);
+    return rows[0];
+}
+
+export default {getProducts,getProductById,createProduct,updateProduct,deleteProduct};

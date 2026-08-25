@@ -32,4 +32,10 @@ const updateProduct=async(id,name,price)=>{
     return updatedProduct;
 }
 
-export default {createProduct,getProducts,getProductById,updateProduct};
+const deleteProduct=async(id)=>{
+    
+    const deletedProduct=await productRepository.deleteProduct(id);
+    return deletedProduct;
+}
+
+export default {createProduct,getProducts,getProductById,updateProduct,deleteProduct};

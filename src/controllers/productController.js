@@ -58,4 +58,16 @@ const updateProduct=asyncHandler(async(req,res)=>{
     res.json(product);
 })
 
-export default {getProducts, getProductById, createProduct,updateProduct};   
+const deleteProduct=asyncHandler(async(req,res)=>{
+    const productId=parseInt(req.params.id,10);
+
+    const product= await productService.deleteProduct(productId);
+    if(!product){
+        return res.status(404).json({
+            message:"Product not found"
+        })
+    }
+    res.status(204).json({message:"Product deleted successfully"});
+})
+
+export default {getProducts, getProductById, createProduct,updateProduct, deleteProduct};   
