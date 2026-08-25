@@ -12,4 +12,10 @@ const getProductById=async(id)=>{
     return rows[0];  
 }
 
-export default {getProducts,getProductById};
+const createProduct=async(name,price)=>{
+    const query='insert into products(name,price) values($1,$2) returning *';
+    const {rows}=await pool.query(query,[name,price]);
+    return rows[0];
+}
+
+export default {getProducts,getProductById,createProduct};

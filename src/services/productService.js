@@ -1,4 +1,4 @@
-import products from '../models/productModel.js';
+
 import productRepository from '../repositories/productRepository.js';
 
 const getProducts=async()=>{
@@ -11,16 +11,9 @@ const getProductById=async(id)=>{
     return product;
 }
 
-const createProduct=(name,price)=>{
+const createProduct=async(name,price)=>{
 
-    
-    const newProduct={
-        id: products.length+1,
-        name,
-        price
-    }
-    products.push(newProduct);
-
+    const newProduct=await productRepository.createProduct(name,price);
     return newProduct;
 }
 

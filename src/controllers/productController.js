@@ -36,11 +36,11 @@ const getProductById=async(req,res)=>{
 }
 
 
-const createProduct=(req,res)=>{
+const createProduct=async(req,res)=>{
 
     const {name,price}=req.body;
 
-    const product=productService.createProduct(name,price);
+    const product=await productService.createProduct(name,price);
     res.status(201).json(product);
 }
 
