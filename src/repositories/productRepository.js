@@ -18,4 +18,10 @@ const createProduct=async(name,price)=>{
     return rows[0];
 }
 
-export default {getProducts,getProductById,createProduct};
+const updateProduct=async(id,name,price)=>{
+    const query='update products set name=$1, price=$2 where id=$3 returning *';
+    const {rows}=await pool.query(query,[name,price,id]);
+    return rows[0];
+}
+
+export default {getProducts,getProductById,createProduct,updateProduct};

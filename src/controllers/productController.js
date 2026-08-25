@@ -17,15 +17,16 @@
 // ]
 
 import productService from '../services/productService.js';
+import asyncHandler from '../utils/asyncHandler.js';
 
 
 
-const getProducts=async(req,res)=>{
+const getProducts=asyncHandler(async(req,res)=>{
     const products=await productService.getProducts();
     res.json(products);
-}
+});
 
-const getProductById=async(req,res)=>{
+const getProductById=asyncHandler(async(req,res)=>{
     const productId=parseInt(req.params.id,10);
     const product=await productService.getProductById(productId);
     if(product){
@@ -33,15 +34,28 @@ const getProductById=async(req,res)=>{
     } else {
         res.status(404).json({message: "Product not found"});
     }
-}
+});
 
 
-const createProduct=async(req,res)=>{
+const createProduct=asyncHandler(async(req,res)=>{
 
     const {name,price}=req.body;
 
     const product=await productService.createProduct(name,price);
     res.status(201).json(product);
-}
+});
 
-export default {getProducts, getProductById, createProduct};   
+const updateProduct=asyncHandler(async(req,res)=>{
+    const productId=parseInt(req.params.id,10);
+
+    const {name,price}=req.body;
+
+    const product=await productService.updateProduct(productId,name,price);
+    if(!product){
+        return res.status(404).json({message:"Product not found"});
+    }
+
+    res.json(product);
+})
+
+export default {getProducts, getProductById, createProduct,updateProduct};   

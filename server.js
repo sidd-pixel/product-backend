@@ -1,6 +1,7 @@
 import express from 'express';
 import productRoutes from './src/routes/productRoutes.js';
 import loggerMiddleware from './src/middleware/loggerMiddleware.js';
+import errorMiddleware from './src/middleware/errorMiddleware.js';
 
 const app=express();
 
@@ -9,6 +10,8 @@ app.use(express.json());
 app.use(loggerMiddleware);
 
 app.use('/products',productRoutes);
+
+app.use(errorMiddleware);
 
 // const products=[
 //     {
